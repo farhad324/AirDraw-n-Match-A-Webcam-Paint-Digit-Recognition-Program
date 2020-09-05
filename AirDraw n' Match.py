@@ -43,7 +43,7 @@ while True:
    #Create an image for the canvas
     img=np.zeros((512,512,3),np.int8)
 
-   #Choose pen color (I chose green)
+   #Choose pen color (I chose white)
     pen_color=(256,256,256)
     
     trials+=1
