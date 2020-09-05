@@ -210,3 +210,9 @@ The result panel shows up when you press q. It will show the given number and th
 The 'permission' variable is a string data which comes from the easygui button. It can be 'Close' or 'Continue'.
 The whole loop (first while loop) will break if the 'permission' variable's value is not 'Continue'.
 So, this is how the program ends.
+
+## Optional way to run the Webcam Paint (Object Tracking)
+It's not a convinient way to draw because, keeping the track of a selected object is not optimal. So, the object gets lost. But it's not advised for webcam paint.
+Check this out,
+[Webcam paint using ROI select.py ] (https://github.com/farhad324/AirDraw-n-Match-A-Webcam-Paint-Digit-Recognition-Program/blob/master/Webcam%20paint%20using%20ROI%20select.py).
+
