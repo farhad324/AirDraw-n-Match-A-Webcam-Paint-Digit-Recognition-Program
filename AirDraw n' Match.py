@@ -31,7 +31,7 @@ trials=0
 points=0
 
 while True:
-    n=random. randint(0,9) 
+    n=random.randint(0,9) 
     num= 'Draw: '+str(n)
 
     cap = cv2.VideoCapture(0)
