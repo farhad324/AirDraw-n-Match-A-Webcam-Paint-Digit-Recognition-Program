@@ -96,7 +96,9 @@ Mirror the image using cv2.flip(frame,1) to draw with ease.
 Convert color to hsv and then create a mask with the threshold value (low_green, high_green) to detect the object.
 Use cv2.findContours to show the detected green object. Contours can be explained simply as a curve joining all the continuous points (along the boundary), having same color or intensity. The contours are a useful tool for shape analysis and object detection and recognition.
 I used cv2.putText to show the 'Draw: 9' to see which number the user have to draw.
+
 ![Pen Size](images/pensize.PNG)
+
 ```python
 for c in contours:
         area = cv2.contourArea(c)
