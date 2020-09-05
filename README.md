@@ -94,5 +94,52 @@ Show the created image 'img' and name it 'Canvas'.
 cap.read() returns a bool (True/False). If frame is read correctly, it will be True. So you can check end of the video by checking this return value.
 Mirror the image using cv2.flip(frame,1) to draw with ease. 
 Convert color to hsv and then create a mask with the threshold value (low_green, high_green) to detect the object.
-Use cv2.findContours to show the detected green object.
+Use cv2.findContours to show the detected green object. Contours can be explained simply as a curve joining all the continuous points (along the boundary), having same color or intensity. The contours are a useful tool for shape analysis and object detection and recognition.
 I used cv2.putText to show the 'Draw: 9' to see which number the user have to draw.
+![Pen Size](images/pensize.PNG)
+```python
+for c in contours:
+        area = cv2.contourArea(c)
+        if area > 600:
+            x, y, w, h = cv2.boundingRect(c)
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (255,10,0), 2)
+            pen_size=2
+            if  1500 < area <2500:
+                pen_size=3
+            elif 2500 < area<3500:
+                pen_size=4
+            elif 3500 < area <4500:
+                 pen_size=5
+            elif 4500 < area<5500:
+                 pen_size=6
+            elif 5500 < area<6500:
+                 pen_size=7
+            elif 6500 < area < 7500:
+                 pen_size=8
+            elif 7500 < area < 8500:
+                 pen_size=9
+            elif 8500 < area:
+                 pen_size=10
+            cv2.circle(img,(x,y),pen_size,pen_color,-1)
+            cv2.circle(frame,(x,y),pen_size,pen_color,2)
+            cv2.putText(frame, "Object Found", (250, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255,10,0), 1, cv2.LINE_AA)
+            cv2.putText(frame, str(area), (250, 400), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255,10,0), 1, cv2.LINE_AA)          
+```
+For each countours, we will use the cv2.contourArea to get the area of the countor. If the area is greater than 60 it will create a bounding box. Moreover, the pensize depends on the area of the countour. 
+After the last elif we draw circles on the 'Canvas' according to the value of 'x' and 'y'. We also add a circle on the detection panel which works as a nib.
+At last, in the for loop we write some texts like "Object Found" and the area of the object.
+```python
+cv2.imshow('Detection Panel', frame)
+if cv2.waitKey(10) == ord('q'):
+    break  
+```
+To see the detection panel I used cv2.imshow('Detection Panel', frame).
+To close the Webcam Paint program or stop the video capturing we have to press 'q', which breaks the whole loop.
+```python
+cv2.imwrite("Output Image.jpg",img)
+cap.release()
+cv2.destroyAllWindows()
+```
+To finish the Webcam Paint section we'll realease the capture. We can save the output image using cv2.imwrite.
+
+### Merging Webcam Paint & Digit Recognition (predicting the digit)
