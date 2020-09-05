@@ -46,6 +46,20 @@ model.fit(x_train,y_train,epochs = 3 )
 predictions = model.predict([x_test])
 ```
 We used the MNIST data set, it has 70,000 images of handwritten images in 28 by 28 pixels.
+We will use 60,000 images to train the model and the rest 10,000 to test the model.
+We can see we used some methods here,
+
+Sequential: That defines a SEQUENCE of layers in the neural network.
+
+Flatten: Remember earlier where our images were a square, when you printed them out? Flatten just takes that square and turns it into a 1 dimensional set.
+
+Dense: Adds a layer of neurons.
+
+Relu effectively means "If X>0 return X, else return 0" -- so what it does it it only passes values 0 or greater to the next layer in the network.
+
+Softmax takes a set of values, and effectively picks the biggest one.
+
+The next thing to do, now the model is defined, is to actually build it. You do this by compiling it with an optimizer and loss function as before -- and then you train it by calling *model.fit * asking it to fit your training data to your training labels.
 
 ### Webcam Paint
 ```python
@@ -145,3 +159,51 @@ cv2.destroyAllWindows()
 To finish the Webcam Paint section we'll realease the capture. We can save the output image using cv2.imwrite.
 
 ### Merging Webcam Paint & Digit Recognition (predicting the digit)
+```python
+image = cv2.imread("Output Image.jpg")
+image = image[25:420, 25:450]
+image = ~image
+cv2.imwrite("img_inv.jpg",image)
+```
+Crop the image and invert the color.
+```python
+img_array = cv2.imread("img_inv.jpg", cv2.IMREAD_GRAYSCALE)
+img_array = cv2.bitwise_not(img_array)
+img_size = 28
+new_array = cv2.resize(img_array, (img_size,img_size))
+plt.imshow(new_array, cmap = plt.cm.binary)
+plt.title("Test Image")
+plt.show()
+```
+Changing the image shape to 28 * 28 and turning it into a grayscale image. The image below shows how the test image looks like.
+![Test Image](images/output_test_image.png)
+
+```python
+user_test = tf.keras.utils.normalize(new_array, axis = 1)
+predicted = model.predict([[user_test]])
+a = predicted[0][0]
+for i in range(0,10):
+    b = predicted[0][i]
+    print("Probability Distribution for",i,b)
+print("The Predicted Value is",np.argmax(predicted[0]))
+```
+Finally, we will predict the drawn digit. You'll notice that all of the values in the number are between 0 and 255. If we are training a neural network, for various reasons it's easier if we treat all values as between 0 and 1, a process called 'normalizing'. We will normalize the 'new_array' which is the array of the test image. Then, we will predict the digit; we will also print out the probability distribution. The one with the highest probability distribution is our predicted digit.
+
+### Result
+```python
+draw=str(n)
+    prediction=str(np.argmax(predicted[0]))
+    if n==np.argmax(predicted[0]):
+        points+=1
+        message="Given number was: "+draw+"\nPredicted number is: "+prediction+"\n\nYour number matched!!!\n\nPoints: "+str(points)+"\n\nTrials: "+str(trials)       
+        permission = easygui.buttonbox(message, 'Result', choices=(['Close', 'Continue']))
+    else:
+        message="Given number was: "+draw+"\nPredicted number is: "+prediction+"\n\nYour number didn't match!!!\n\nPoints: "+str(points)+"\n\nTrials: "+str(trials)
+        permission = easygui.buttonbox(message, 'Result', choices=(['Close', 'Continue']))         
+    if permission!='Continue':
+        break
+```
+The result panel shows up when you press q. It will show the given number and the predicted number along with your achievec points and trials.
+The 'permission' variable is a string data which comes from the easygui button. It can be 'Close' or 'Continue'.
+The whole loop (first while loop) will break if the 'permission' variable's value is not 'Continue'.
+So, this is how the program ends.
