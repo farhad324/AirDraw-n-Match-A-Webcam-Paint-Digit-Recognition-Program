@@ -76,6 +76,23 @@ trials+=1
 ```
 
 So, to show the "Draw: 9" on the detection panel we have to create a random number generator. Here, in random.randint, the arguments are set to 0 to 9 so that it can only generate integers from 0 to 9. The 'num' is a string data to use on the detection panel.
-
+To capture a video, you need to create a VideoCapture object. Its argument can be either the device index or the name of a video file. Device index is just the number to specify which camera. Normally one camera will be connected (as in my case). So I simply pass 0 (or -1). You can select the second camera by passing 1 and so on. After that, you can capture frame-by-frame. But at the end, don’t forget to release the capture.
 Choose a color range (threshold value) for the colored object detection.
-For details, [Check this out](https://www.geeksforgeeks.org/python-thresholding-techniques-using-opencv-set-1-simple-thresholding/)
+For details, [Check this out](https://www.geeksforgeeks.org/python-thresholding-techniques-using-opencv-set-1-simple-thresholding/).
+
+In the inner loop,
+```python
+cv2.imshow('Canvas',img)
+ret, frame = cap.read()
+frame = cv2.flip(frame,1)
+hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+mask = cv2.inRange(hsv, low_green , high_green)
+contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+cv2.putText(frame, num, (20, 80), cv2.FONT_HERSHEY_COMPLEX, 0.7, (255,10,0), 1, cv2.LINE_AA)
+```
+Show the created image 'img' and name it 'Canvas'. 
+cap.read() returns a bool (True/False). If frame is read correctly, it will be True. So you can check end of the video by checking this return value.
+Mirror the image using cv2.flip(frame,1) to draw with ease. 
+Convert color to hsv and then create a mask with the threshold value (low_green, high_green) to detect the object.
+Use cv2.findContours to show the detected green object.
+I used cv2.putText to show the 'Draw: 9' to see which number the user have to draw.
