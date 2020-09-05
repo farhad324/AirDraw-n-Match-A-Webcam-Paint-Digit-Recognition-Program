@@ -213,6 +213,5 @@ So, this is how the program ends.
 
 ## Optional way to run the Webcam Paint (Object Tracking)
 It's not a convinient way to draw because, keeping the track of a selected object is not optimal. So, the object gets lost. But it's not advised for webcam paint.
-Check this out,
-[Webcam paint using ROI select] (https://github.com/farhad324/AirDraw-n-Match-A-Webcam-Paint-Digit-Recognition-Program/blob/master/Webcam%20paint%20using%20ROI%20select.py).
+For the code, [Check this out](https://github.com/farhad324/AirDraw-n-Match-A-Webcam-Paint-Digit-Recognition-Program/blob/master/Webcam%20paint%20using%20ROI%20select.py).
 
