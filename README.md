@@ -5,7 +5,7 @@ A program where you can draw something without a keyboard or a mouse. It does no
 ## Achievements
 - **One of the winners in Skill Showcasing - R@D!X (Radix) by Brac University Computer Club** 
 
-![win1](images/win1.PNG)
+![win1](images/win1.JPG)
 
 
 ## How to use
