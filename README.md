@@ -1,5 +1,13 @@
 # AirDraw-n-Match-A-Webcam-Paint-Digit-Recognition-Program
 
+A program where you can draw something without a keyboard or a mouse. It does not end here, it will give a random integer to draw, the Neural Network will predict the digit that you drew. The whole program works like a game.
+
+## Achievements
+- **One of the winners in Skill Showcasing - R@D!X (Radix) by Brac University Computer Club** 
+
+![win1](images/win1.PNG)
+
+
 ## How to use
 
 ![Detection Panel 1](images/detection%20panel%201.PNG)
